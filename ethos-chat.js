@@ -14,12 +14,14 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "// CLAUS (exemple: AIzaSyC3J8p9-7sF4QkL2Zx8YtA1bC0dEfGhIj)",
-  authDomain: "// CLAUS (exemple: ethos-chat-92f1a.firebaseapp.com)",
-  projectId: "// CLAUS (exemple: ethos-chat-92f1a)",
-  storageBucket: "// CLAUS (exemple: ethos-chat-92f1a.appspot.com)",
-  messagingSenderId: "// CLAUS (exemple: 1048273649182)",
-  appId: "// CLAUS (exemple: 1:1048273649182:web:8f2c1b3d9a7e4f5c6b1d2e)",
+  apiKey: "AIzaSyDpls-yeDmNRoDLq4jXUCKbaiip0A9oXmQ",
+  authDomain: "ethos-chat-dfe0e.firebaseapp.com",
+  databaseURL: "https://ethos-chat-dfe0e-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "ethos-chat-dfe0e",
+  storageBucket: "ethos-chat-dfe0e.firebasestorage.app",
+  messagingSenderId: "1033379402899",
+  appId: "1:1033379402899:web:e0a71148c2c1e0a55e2966",
+  measurementId: "G-GWK6PBTJV7"
 };
 
 const app = initializeApp(firebaseConfig);
