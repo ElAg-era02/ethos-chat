@@ -9,15 +9,17 @@ import {
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "API_KEY",
-  authDomain: "PROJECT_ID.firebaseapp.com",
-  projectId: "PROJECT_ID",
-  storageBucket: "PROJECT_ID.appspot.com",
-  messagingSenderId: "XXXXXX",
-  appId: "XXXXXX"
+  apiKey: "AIzaSyDpls-yeDmNRoDLq4jXUCKbaiip0A9oXmQ",
+  authDomain: "ethos-chat-dfe0e.firebaseapp.com",
+  databaseURL: "https://ethos-chat-dfe0e-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "ethos-chat-dfe0e",
+  storageBucket: "ethos-chat-dfe0e.firebasestorage.app",
+  messagingSenderId: "1033379402899",
+  appId: "1:1033379402899:web:e0a71148c2c1e0a55e2966",
+  measurementId: "G-GWK6PBTJV7"
 };
-
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
