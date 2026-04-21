@@ -166,9 +166,6 @@ body {
     font-weight: bold;
 }
 
-/* ------------------------------
-   MODAL NOM
------------------------------- */
 .modal {
     position: fixed;
     top: 0;
@@ -179,6 +176,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 9999; /* 🔥 AIXÒ ÉS EL QUE FALTAVA */
 }
 
 .modal-content {
@@ -187,6 +185,7 @@ body {
     padding: 20px;
     width: 300px;
     text-align: center;
+    z-index: 10000; /* 🔥 Per assegurar que està per sobre */
 }
 
 .modal-content input {
