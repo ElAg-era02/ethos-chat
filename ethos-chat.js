@@ -49,6 +49,11 @@ const profileMessages = document.getElementById("profileMessages");
 const profileId = document.getElementById("profileId");
 const profileAvatar = document.getElementById("profileAvatar");
 
+console.log("nameConfirm:", nameConfirm);
+console.log("nameModal:", nameModal);
+console.log("nameInput:", nameInput);
+
+
 // ------------------------------
 // Usuari local
 // ------------------------------
@@ -118,6 +123,10 @@ async function sendMessage() {
 }
 
 chatSend.addEventListener("click", sendMessage);
+nameConfirm.addEventListener("click", () => {
+  console.log("CLICK DETECTAT");
+});
+
 chatInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter") sendMessage();
 });
