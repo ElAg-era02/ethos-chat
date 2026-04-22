@@ -132,33 +132,56 @@ openProfile.addEventListener("click", () => {
   profilePanel.classList.toggle("hidden");
 });
 
-// ------------------------------
-// TEMES ETHOS
-// ------------------------------
+/* ------------------------------
+   TEMES ETHOS DEFINITIUS
+------------------------------ */
 
-const themeButtons = document.querySelectorAll(".theme-btn");
-
-// Carregar tema guardat
-const savedTheme = localStorage.getItem("ethosTheme");
-if (savedTheme) {
-  document.body.classList.add(`theme-${savedTheme}`);
+/* Tema verd (per defecte) */
+body.theme-ethos_green {
+  --bg: #000;
+  --text: #00ff9f;
+  --accent: #00ff9f;
 }
 
-// Canviar tema
-themeButtons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    const theme = btn.dataset.theme;
+/* Tema vermell */
+body.theme-ethos_red {
+  --bg: #000;
+  --text: #ff4d4d;
+  --accent: #ff4d4d;
+}
 
-    // Treure temes anteriors
-    document.body.classList.remove("theme-neon", "theme-blue", "theme-purple");
+/* Tema blau */
+body.theme-ethos_blue {
+  --bg: #000;
+  --text: #4dc3ff;
+  --accent: #4dc3ff;
+}
 
-    // Afegir el nou
-    document.body.classList.add(`theme-${theme}`);
+/* Mode clar */
+body.theme-ethos_light {
+  --bg: #ffffff;
+  --text: #000000;
+  --accent: #000000;
+}
 
-    // Guardar
-    localStorage.setItem("ethosTheme", theme);
-  });
-});
+/* Aplicació de variables */
+body, .chat-container, .profile-panel, .modal-content {
+  background: var(--bg);
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+button, input {
+  background: var(--bg);
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+button:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+
 
 
 
