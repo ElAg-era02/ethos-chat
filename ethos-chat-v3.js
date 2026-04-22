@@ -1,4 +1,4 @@
-console.log("ETHOS CHAT v3 LOADED");
+console.log("ETHOS CHAT v5 LOADED");
 
 // ------------------------------
 // FIREBASE
@@ -11,7 +11,10 @@ import {
   query,
   orderBy,
   onSnapshot,
-  serverTimestamp
+  serverTimestamp,
+  doc,
+  setDoc,
+  getDoc
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -31,28 +34,51 @@ const db = getFirestore(app);
 // ------------------------------
 // ELEMENTS HTML
 // ------------------------------
+const authOverlay = document.getElementById("authOverlay");
+const tabLogin = document.getElementById("tabLogin");
+const tabSignup = document.getElementById("tabSignup");
+const loginPanel = document.getElementById("loginPanel");
+const signupPanel = document.getElementById("signupPanel");
+
+const loginName = document.getElementById("loginName");
+const loginPass = document.getElementById("loginPass");
+const loginBtn = document.getElementById("loginBtn");
+
+const signupName = document.getElementById("signupName");
+const signupPass = document.getElementById("signupPass");
+const signupBtn = document.getElementById("signupBtn");
+
 const messagesEl = document.getElementById("messages");
 const messageInput = document.getElementById("messageInput");
 const sendBtn = document.getElementById("sendBtn");
 const clearLocal = document.getElementById("clearLocal");
+
 const openProfile = document.getElementById("openProfile");
 const closeProfile = document.getElementById("closeProfile");
-
 const profilePanel = document.getElementById("profilePanel");
-const nameInput = document.getElementById("nameInput");
+const profileName = document.getElementById("profileName");
 const profileLast = document.getElementById("profileLast");
 const profileCount = document.getElementById("profileCount");
 const profileId = document.getElementById("profileId");
+const themeButtons = document.querySelectorAll(".theme-btn");
 
 // ------------------------------
-// USUARI SENSE MODAL
+// ESTAT D'USUARI
 // ------------------------------
 let user = JSON.parse(localStorage.getItem("ethosUser")) || null;
+
+function updateProfileUI() {
+  if (!user) return;
+  profileName.textContent = user.name;
+  profileLast.textContent = new Date(user.lastSeen).toLocaleString();
+  profileCount.textContent = user.messagesSent;
+  profileId.textContent = user.internalId;
+}
 
 function checkUser() {
   if (!user || !user.name) {
     messageInput.disabled = true;
-    messageInput.placeholder = "Configura el teu nom a Settings";
+    messageInput.placeholder = "Inicia sessió per escriure...";
     sendBtn.disabled = true;
   } else {
     messageInput.disabled = false;
@@ -61,36 +87,120 @@ function checkUser() {
   }
 }
 
+updateProfileUI();
 checkUser();
 
-function updateProfileUI() {
-  if (!user) return;
-  profileLast.textContent = new Date(user.lastSeen).toLocaleString();
-  profileCount.textContent = user.messagesSent;
-  profileId.textContent = user.internalId;
-  nameInput.value = user.name;
+// Si no hi ha usuari → mostra popup
+if (!user || !user.name) {
+  authOverlay.classList.remove("hidden");
+} else {
+  authOverlay.classList.add("hidden");
 }
 
-updateProfileUI();
+// ------------------------------
+// TABS LOGIN / SIGNUP
+// ------------------------------
+tabLogin.addEventListener("click", () => {
+  tabLogin.classList.add("active");
+  tabSignup.classList.remove("active");
+  loginPanel.classList.remove("hidden");
+  signupPanel.classList.add("hidden");
+});
+
+tabSignup.addEventListener("click", () => {
+  tabSignup.classList.add("active");
+  tabLogin.classList.remove("active");
+  signupPanel.classList.remove("hidden");
+  loginPanel.classList.add("hidden");
+});
 
 // ------------------------------
-// CANVIAR NOM
+// CREAR COMPTE
 // ------------------------------
-nameInput.addEventListener("change", () => {
-  const newName = nameInput.value.trim();
-  if (!newName) return;
+signupBtn.addEventListener("click", async () => {
+  const name = signupName.value.trim();
+  const pass = signupPass.value.trim();
+
+  if (!name || !pass) {
+    alert("Omple nom i contrasenya");
+    return;
+  }
+
+  const ref = doc(db, "users", name);
+  const snap = await getDoc(ref);
+
+  if (snap.exists()) {
+    alert("Aquest nom d'usuari ja existeix");
+    return;
+  }
+
+  const newUser = {
+    password: pass, // TEXT PLA (com vols)
+    internalId: Math.random().toString(36).substring(2, 12),
+    createdAt: Date.now(),
+    lastSeen: Date.now(),
+    messagesSent: 0
+  };
+
+  await setDoc(ref, newUser);
 
   user = {
-    name: newName,
-    internalId: user?.internalId || Math.random().toString(36).substring(2, 12),
-    createdAt: user?.createdAt || Date.now(),
-    lastSeen: Date.now(),
-    messagesSent: user?.messagesSent || 0
+    name,
+    internalId: newUser.internalId,
+    createdAt: newUser.createdAt,
+    lastSeen: newUser.lastSeen,
+    messagesSent: newUser.messagesSent
   };
 
   localStorage.setItem("ethosUser", JSON.stringify(user));
   updateProfileUI();
   checkUser();
+
+  authOverlay.classList.add("hidden");
+  alert("Compte creat i sessió iniciada!");
+});
+
+// ------------------------------
+// LOGIN
+// ------------------------------
+loginBtn.addEventListener("click", async () => {
+  const name = loginName.value.trim();
+  const pass = loginPass.value.trim();
+
+  if (!name || !pass) {
+    alert("Omple nom i contrasenya");
+    return;
+  }
+
+  const ref = doc(db, "users", name);
+  const snap = await getDoc(ref);
+
+  if (!snap.exists()) {
+    alert("Aquest usuari no existeix. Crea un compte.");
+    return;
+  }
+
+  const data = snap.data();
+
+  if (data.password !== pass) {
+    alert("Contrasenya incorrecta");
+    return;
+  }
+
+  user = {
+    name,
+    internalId: data.internalId,
+    createdAt: data.createdAt,
+    lastSeen: Date.now(),
+    messagesSent: data.messagesSent || 0
+  };
+
+  localStorage.setItem("ethosUser", JSON.stringify(user));
+  updateProfileUI();
+  checkUser();
+
+  authOverlay.classList.add("hidden");
+  alert("Sessió iniciada!");
 });
 
 // ------------------------------
@@ -129,10 +239,11 @@ const q = query(collection(db, "messages"), orderBy("createdAt", "asc"));
 onSnapshot(q, (snapshot) => {
   messagesEl.innerHTML = "";
 
-  snapshot.forEach((doc) => {
-    const msg = doc.data();
+  snapshot.forEach((docSnap) => {
+    const msg = docSnap.data();
     const div = document.createElement("div");
-    div.innerHTML = `<strong>${msg.user}:</strong> ${msg.text}`;
+    div.classList.add("message-bubble");
+    div.innerHTML = `<span class="msg-user">${msg.user}</span><span class="msg-text">${msg.text}</span>`;
     messagesEl.appendChild(div);
   });
 
@@ -140,7 +251,7 @@ onSnapshot(q, (snapshot) => {
 });
 
 // ------------------------------
-// PERFIL
+// SETTINGS PANEL
 // ------------------------------
 openProfile.addEventListener("click", () => {
   profilePanel.classList.toggle("hidden");
@@ -161,12 +272,16 @@ clearLocal.addEventListener("click", () => {
 // ------------------------------
 // TEMES
 // ------------------------------
-const themeButtons = document.querySelectorAll(".theme-btn");
-
 const savedTheme = localStorage.getItem("ethosTheme");
 const validThemes = ["ethos_green", "ethos_red", "ethos_blue", "ethos_light"];
 
 if (savedTheme && validThemes.includes(savedTheme)) {
+  document.body.classList.remove(
+    "theme-ethos_green",
+    "theme-ethos_red",
+    "theme-ethos_blue",
+    "theme-ethos_light"
+  );
   document.body.classList.add(`theme-${savedTheme}`);
 }
 
