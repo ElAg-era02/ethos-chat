@@ -9,16 +9,6 @@
 
 <body>
 
-  <!-- Modal Nom -->
-  <div id="nameModal" class="modal">
-    <div class="modal-content">
-      <h2>Benvingut a ETHOS_CHAT</h2>
-      <p>Introdueix el teu nom:</p>
-      <input type="text" id="nameInput" placeholder="El teu nom...">
-      <button id="nameConfirm" type="button">Confirmar</button>
-    </div>
-  </div>
-
   <!-- Contenidor principal -->
   <div class="chat-container">
 
@@ -40,7 +30,9 @@
     <div id="profilePanel" class="profile-panel hidden">
       <h2>Perfil ETHOS</h2>
 
-      <p><strong>Nom:</strong> <span id="profileName"></span></p>
+      <p><strong>Nom:</strong></p>
+      <input type="text" id="nameInput" placeholder="Introdueix el teu nom...">
+
       <p><strong>Última connexió:</strong> <span id="profileLast"></span></p>
       <p><strong>Missatges enviats:</strong> <span id="profileCount"></span></p>
       <p><strong>ID intern:</strong> <span id="profileId"></span></p>
@@ -51,15 +43,13 @@
       <button class="theme-btn" data-theme="ethos_blue">ETHOS Blau</button>
       <button class="theme-btn" data-theme="ethos_light">Mode Clar</button>
 
-      <button id="closeProfile" onclick="document.getElementById('profilePanel').classList.add('hidden')">
-        Tancar
-      </button>
+      <button id="closeProfile">Tancar</button>
     </div>
 
   </div>
 
   <!-- JS -->
-  <script type="module" src="ethos-chat.js"></script>
+  <script type="module" src="ethos-chat-v3.js"></script>
 
 </body>
 </html>
