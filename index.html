@@ -1,86 +1,60 @@
 <!DOCTYPE html>
 <html lang="ca">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ETHOS_CHAT</title>
-    <link rel="stylesheet" href="ethos-chat.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ETHOS_CHAT</title>
+  <link rel="stylesheet" href="ethos-chat.css">
 </head>
 
 <body>
 
-    <!-- Modal Nom -->
-<div id="nameModal" class="modal">
-  <div class="modal-content">
-    <h2>Benvingut a ETHOS_CHAT</h2>
-    <p>Introdueix el teu nom:</p>
-    <input type="text" id="nameInput" placeholder="El teu nom...">
-    <button id="nameConfirm">Confirmar</button>
+  <!-- Modal Nom -->
+  <div id="nameModal" class="modal">
+    <div class="modal-content">
+      <h2>Benvingut a ETHOS_CHAT</h2>
+      <p>Introdueix el teu nom:</p>
+      <input type="text" id="nameInput" placeholder="El teu nom...">
+      <button id="nameConfirm">Confirmar</button>
+    </div>
   </div>
-</div>
 
-<!-- Perfil -->
-<div id="profilePanel" class="profile-panel hidden">
-  <h2>Perfil ETHOS</h2>
+  <!-- Contenidor principal -->
+  <div class="chat-container">
 
-  <p><strong>Nom:</strong> <span id="profileName"></span></p>
-  <p><strong>Última connexió:</strong> <span id="profileLast"></span></p>
-  <p><strong>Missatges enviats:</strong> <span id="profileCount"></span></p>
-  <p><strong>ID intern:</strong> <span id="profileId"></span></p>
+    <!-- Panell esquerra: Xat -->
+    <div class="chat-box">
+      <h1>ETHOS_CHAT</h1>
 
-  <h3>Temes</h3>
-  <button class="theme-btn" data-theme="neon">ETHOS Neon Green</button>
-  <button class="theme-btn" data-theme="blue">ETHOS Blue Cyber</button>
-  <button class="theme-btn" data-theme="purple">ETHOS Purple Void</button>
+      <div id="messages" class="messages"></div>
 
-  <button id="closeProfile">Tancar</button>
-</div>
-
-
-    <!-- CONTENIDOR PRINCIPAL -->
-    <div class="container">
-
-        <!-- XAT -->
-        <div class="chat-box">
-            <div class="chat-header">
-                <h2>ETHOS_CHAT</h2>
-                <span id="chatStatus" class="offline">● Offline</span>
-            </div>
-
-            <ul id="chatMessages" class="chat-messages"></ul>
-
-            <div class="chat-input-area">
-                <input id="chatInput" type="text" placeholder="Escriu un missatge...">
-                <button id="chatSend">Enviar</button>
-            </div>
-
-            <div class="chat-tools">
-                <button id="clearLocal">Clear local</button>
-                <button id="settingsBtn">Settings</button>
-            </div>
-        </div>
-
-        <!-- PANEL SETTINGS -->
-        <div id="settingsPanel" class="settings hidden">
-            <h2>Perfil ETHOS</h2>
-
-            <img id="profileAvatar" class="avatar" src="" alt="Avatar">
-
-            <p><strong>Nom:</strong> <span id="profileName">-</span></p>
-            <p><strong>Última connexió:</strong> <span id="profileLastSeen">-</span></p>
-            <p><strong>Missatges enviats:</strong> <span id="profileMessages">-</span></p>
-            <p><strong>ID intern:</strong> <span id="profileId">-</span></p>
-
-            <h3>Temes</h3>
-            <button class="theme-btn" id="themeGreen">ETHOS Neon Green</button>
-            <button class="theme-btn" id="themeBlue">ETHOS Blue Cyber</button>
-            <button class="theme-btn" id="themePurple">ETHOS Purple Void</button>
-
-            <button id="closeSettings" class="close-btn">Tancar</button>
-        </div>
-
+      <div class="input-area">
+        <input type="text" id="messageInput" placeholder="Escriu un missatge...">
+        <button id="sendBtn">Enviar</button>
+        <button id="clearLocal">Clear local</button>
+        <button id="openProfile">Settings</button>
+      </div>
     </div>
 
-    <script type="module" src="ethos-chat.js"></script>
+    <!-- Panell dret: Perfil -->
+    <div id="profilePanel" class="profile-panel hidden">
+      <h2>Perfil ETHOS</h2>
+
+      <p><strong>Nom:</strong> <span id="profileName"></span></p>
+      <p><strong>Última connexió:</strong> <span id="profileLast"></span></p>
+      <p><strong>Missatges enviats:</strong> <span id="profileCount"></span></p>
+      <p><strong>ID intern:</strong> <span id="profileId"></span></p>
+
+      <h3>Temes</h3>
+      <button class="theme-btn" data-theme="neon">ETHOS Neon Green</button>
+      <button class="theme-btn" data-theme="blue">ETHOS Blue Cyber</button>
+      <button class="theme-btn" data-theme="purple">ETHOS Purple Void</button>
+
+      <button id="closeProfile">Tancar</button>
+    </div>
+
+  </div>
+
+  <script type="module" src="ethos-chat.js"></script>
 </body>
 </html>
