@@ -1,4 +1,4 @@
-console.log("ETHOS CHAT v5 LOADED");
+console.log("ETHOS CHAT v6 LOADED");
 
 // ------------------------------
 // FIREBASE
@@ -135,7 +135,7 @@ signupBtn.addEventListener("click", async () => {
   }
 
   const newUser = {
-    password: pass, // TEXT PLA (com vols)
+    password: pass,
     internalId: Math.random().toString(36).substring(2, 12),
     createdAt: Date.now(),
     lastSeen: Date.now(),
@@ -157,7 +157,6 @@ signupBtn.addEventListener("click", async () => {
   checkUser();
 
   authOverlay.classList.add("hidden");
-  alert("Compte creat i sessió iniciada!");
 });
 
 // ------------------------------
@@ -200,7 +199,6 @@ loginBtn.addEventListener("click", async () => {
   checkUser();
 
   authOverlay.classList.add("hidden");
-  alert("Sessió iniciada!");
 });
 
 // ------------------------------
