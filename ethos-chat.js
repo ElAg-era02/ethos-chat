@@ -133,6 +133,36 @@ openProfile.addEventListener("click", () => {
 });
 
 // ------------------------------
+// TEMES ETHOS
+// ------------------------------
+
+const themeButtons = document.querySelectorAll(".theme-btn");
+
+// Carregar tema guardat
+const savedTheme = localStorage.getItem("ethosTheme");
+if (savedTheme) {
+  document.body.classList.add(`theme-${savedTheme}`);
+}
+
+// Canviar tema
+themeButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    const theme = btn.dataset.theme;
+
+    // Treure temes anteriors
+    document.body.classList.remove("theme-neon", "theme-blue", "theme-purple");
+
+    // Afegir el nou
+    document.body.classList.add(`theme-${theme}`);
+
+    // Guardar
+    localStorage.setItem("ethosTheme", theme);
+  });
+});
+
+
+
+// ------------------------------
 // CLEAR LOCAL
 // ------------------------------
 clearLocal.addEventListener("click", () => {
