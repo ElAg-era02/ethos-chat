@@ -1,8 +1,47 @@
+/* ============================================================
+   VARIABLES BASE
+============================================================ */
 :root {
-  --bg: #000;
+  --bg: #000000;
   --text: #00ff9f;
   --accent: #00ff9f;
 }
+
+/* ============================================================
+   TEMES ETHOS DEFINITIUS
+============================================================ */
+
+/* Tema verd ETHOS (per defecte) */
+body.theme-ethos_green {
+  --bg: #000000;
+  --text: #00ff9f;
+  --accent: #00ff9f;
+}
+
+/* Tema vermell ETHOS */
+body.theme-ethos_red {
+  --bg: #000000;
+  --text: #ff4d4d;
+  --accent: #ff4d4d;
+}
+
+/* Tema blau ETHOS */
+body.theme-ethos_blue {
+  --bg: #000000;
+  --text: #4dc3ff;
+  --accent: #4dc3ff;
+}
+
+/* Mode clar */
+body.theme-ethos_light {
+  --bg: #ffffff;
+  --text: #000000;
+  --accent: #000000;
+}
+
+/* ============================================================
+   APLICACIÓ DE VARIABLES
+============================================================ */
 
 body {
   background: var(--bg);
@@ -12,128 +51,81 @@ body {
   padding: 0;
 }
 
-/* ------------------------------
-   CONTENIDOR PRINCIPAL
------------------------------- */
-
-.chat-container {
-  display: flex;
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
-}
-
-/* ------------------------------
-   PANELL ESQUERRA (XAT)
------------------------------- */
-
-.chat-box {
-  flex: 1;
-  border-right: 2px solid var(--accent);
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-}
-
-h1 {
-  margin-top: 0;
-  color: var(--accent);
-}
-
-.messages {
-  flex: 1;
-  overflow-y: auto;
-  border: 1px solid var(--accent);
-  padding: 10px;
-  margin-bottom: 10px;
-}
-
-.input-area {
-  display: flex;
-  gap: 10px;
-}
-
-input, button {
-  background: #000;
+/* Contenidors */
+.chat-container,
+.profile-panel,
+.modal-content {
+  background: var(--bg);
   color: var(--text);
   border: 2px solid var(--accent);
-  padding: 8px;
+}
+
+/* Text i títols */
+h1, h2, h3, p, strong {
+  color: var(--text);
+}
+
+/* Botons */
+button {
+  background: var(--bg);
+  color: var(--text);
+  border: 2px solid var(--accent);
+  padding: 6px 12px;
+  cursor: pointer;
   font-family: monospace;
 }
 
 button:hover {
   background: var(--accent);
-  color: #000;
-  cursor: pointer;
+  color: var(--bg);
 }
 
-/* ------------------------------
-   PANELL DRET (PERFIL)
------------------------------- */
+/* Inputs */
+input {
+  background: var(--bg);
+  color: var(--text);
+  border: 2px solid var(--accent);
+  padding: 6px;
+  font-family: monospace;
+}
 
-.profile-panel {
-  width: 300px;
-  border-left: 2px solid var(--accent);
-  padding: 20px;
+/* Missatges */
+.messages {
+  border: 2px solid var(--accent);
+  padding: 10px;
+  height: 350px;
   overflow-y: auto;
 }
 
-.hidden {
-  display: none !important;
+/* Perfil */
+.profile-panel {
+  padding: 15px;
+  width: 260px;
 }
 
-/* ------------------------------
-   MODAL NOM
------------------------------- */
+.profile-panel.hidden {
+  display: none;
+}
 
+/* Modal */
 .modal {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.85);
+  inset: 0;
+  background: rgba(0,0,0,0.8);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999999;
 }
 
 .modal-content {
-  background: #000;
-  border: 2px solid var(--accent);
   padding: 20px;
-  width: 320px;
+  width: 300px;
   text-align: center;
-  z-index: 1000000;
 }
 
-#nameConfirm {
-  margin-top: 15px;
-  padding: 10px 20px;
-}
-
-/* ------------------------------
-   TEMES ETHOS
------------------------------- */
-
-body.theme-blue {
-  --text: #4dc3ff;
-  --accent: #4dc3ff;
-}
-
-body.theme-purple {
-  --text: #c77dff;
-  --accent: #c77dff;
-}
-
-/* Aplicació de variables */
-body, .chat-container, .profile-panel, .modal-content {
-  color: var(--text);
-  border-color: var(--accent);
-}
-
-button, input {
-  color: var(--text);
-  border-color: var(--accent);
+/* Input area */
+.input-area {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
 }
