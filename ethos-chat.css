@@ -1,177 +1,139 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: monospace;
+:root {
+  --bg: #000;
+  --text: #00ff9f;
+  --accent: #00ff9f;
 }
 
 body {
-    background: #000;
-    color: #0f0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: monospace;
+  margin: 0;
+  padding: 0;
 }
 
-.container {
-    display: flex;
-    gap: 20px;
+/* ------------------------------
+   CONTENIDOR PRINCIPAL
+------------------------------ */
+
+.chat-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
 }
+
+/* ------------------------------
+   PANELL ESQUERRA (XAT)
+------------------------------ */
 
 .chat-box {
-    width: 420px;
-    background: #050505;
-    border: 2px solid #0f0;
-    padding: 15px;
-    border-radius: 8px;
+  flex: 1;
+  border-right: 2px solid var(--accent);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
-.chat-header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
+h1 {
+  margin-top: 0;
+  color: var(--accent);
 }
 
-#chatStatus.online {
-    color: #0f0;
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  border: 1px solid var(--accent);
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
-#chatStatus.offline {
-    color: #f00;
+.input-area {
+  display: flex;
+  gap: 10px;
 }
 
-.chat-messages {
-    height: 350px;
-    overflow-y: auto;
-    list-style: none;
-    padding-right: 5px;
-    border: 1px solid #0f0;
-    margin-bottom: 10px;
+input, button {
+  background: #000;
+  color: var(--text);
+  border: 2px solid var(--accent);
+  padding: 8px;
+  font-family: monospace;
 }
 
-.chat-message {
-    padding: 5px;
-    border-bottom: 1px solid #0a0;
+button:hover {
+  background: var(--accent);
+  color: #000;
+  cursor: pointer;
 }
 
-.chat-input-area {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 10px;
-}
+/* ------------------------------
+   PANELL DRET (PERFIL)
+------------------------------ */
 
-#chatInput {
-    flex: 1;
-    padding: 8px;
-    background: #000;
-    border: 1px solid #0f0;
-    color: #0f0;
-}
-
-#chatSend {
-    padding: 8px 15px;
-    background: #0f0;
-    color: #000;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-#chatSend:hover {
-    background: #9f9;
-}
-
-.chat-tools {
-    display: flex;
-    justify-content: space-between;
-}
-
-#clearLocal, #settingsBtn {
-    padding: 6px 10px;
-    background: #111;
-    border: 1px solid #0f0;
-    color: #0f0;
-    cursor: pointer;
-}
-
-#clearLocal:hover, #settingsBtn:hover {
-    background: #0f0;
-    color: #000;
-}
-
-.settings {
-    width: 300px;
-    background: #050505;
-    border: 2px solid #0f0;
-    padding: 15px;
-    border-radius: 8px;
+.profile-panel {
+  width: 300px;
+  border-left: 2px solid var(--accent);
+  padding: 20px;
+  overflow-y: auto;
 }
 
 .hidden {
-    display: none;
+  display: none !important;
 }
 
-.avatar {
-    width: 80px;
-    height: 80px;
-    border: 2px solid #0f0;
-    border-radius: 6px;
-    margin-bottom: 10px;
-}
-
-.theme-btn {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 8px;
-    background: #111;
-    border: 1px solid #0f0;
-    color: #0f0;
-    cursor: pointer;
-}
-
-.theme-btn:hover {
-    background: #0f0;
-    color: #000;
-}
-
-.close-btn {
-    width: 100%;
-    padding: 8px;
-    background: #0f0;
-    color: #000;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-}
+/* ------------------------------
+   MODAL NOM
+------------------------------ */
 
 .modal {
-    position: fixed;
-    inset: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.85);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 999999; 
-    pointer-events: auto; 
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999999;
 }
 
 .modal-content {
-    background: #000;
-    border: 2px solid #0f0;
-    padding: 20px;
-    width: 300px;
-    text-align: center;
-    z-index: 1000000; 
-    pointer-events: auto; 
+  background: #000;
+  border: 2px solid var(--accent);
+  padding: 20px;
+  width: 320px;
+  text-align: center;
+  z-index: 1000000;
 }
 
-.modal.hidden {
-    display: none !important; 
+#nameConfirm {
+  margin-top: 15px;
+  padding: 10px 20px;
 }
 
-* {
-    pointer-events: auto;
+/* ------------------------------
+   TEMES ETHOS
+------------------------------ */
+
+body.theme-blue {
+  --text: #4dc3ff;
+  --accent: #4dc3ff;
+}
+
+body.theme-purple {
+  --text: #c77dff;
+  --accent: #c77dff;
+}
+
+/* Aplicació de variables */
+body, .chat-container, .profile-panel, .modal-content {
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+button, input {
+  color: var(--text);
+  border-color: var(--accent);
 }
