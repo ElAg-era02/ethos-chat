@@ -1,3 +1,5 @@
+console.log("ETHOS JS LOADED");
+
 // ------------------------------
 // FIREBASE
 // ------------------------------
@@ -50,11 +52,15 @@ const profileId = document.getElementById("profileId");
 // ------------------------------
 let user = JSON.parse(localStorage.getItem("ethosUser")) || null;
 
+// Si no hi ha usuari → mostrar modal
 if (!user) {
   nameModal.classList.remove("hidden");
 }
 
+// Confirmar nom
 nameConfirm.addEventListener("click", () => {
+  console.log("Confirmar clicat");
+
   const name = nameInput.value.trim();
   if (!name) return;
 
@@ -66,8 +72,11 @@ nameConfirm.addEventListener("click", () => {
     messagesSent: 0
   };
 
+  console.log("Usuari creat:", user);
+
   localStorage.setItem("ethosUser", JSON.stringify(user));
   updateProfileUI();
+
   nameModal.classList.add("hidden");
 });
 
@@ -136,23 +145,22 @@ openProfile.addEventListener("click", () => {
 // CLEAR LOCAL
 // ------------------------------
 clearLocal.addEventListener("click", () => {
-  localStorage.removeItem("ethosUser");
-  localStorage.removeItem("ethosTheme"); // IMPORTANT: esborra tema antic
+  localStorage.clear();
   location.reload();
 });
 
 // ------------------------------
-// TEMES ETHOS DEFINITIUS
+// TEMES
 // ------------------------------
 const themeButtons = document.querySelectorAll(".theme-btn");
 
-// Carregar tema guardat
 const savedTheme = localStorage.getItem("ethosTheme");
-if (savedTheme) {
+const validThemes = ["ethos_green", "ethos_red", "ethos_blue", "ethos_light"];
+
+if (savedTheme && validThemes.includes(savedTheme)) {
   document.body.classList.add(`theme-${savedTheme}`);
 }
 
-// Canviar tema
 themeButtons.forEach(btn => {
   btn.addEventListener("click", () => {
     const theme = btn.dataset.theme;
@@ -165,7 +173,6 @@ themeButtons.forEach(btn => {
     );
 
     document.body.classList.add(`theme-${theme}`);
-
     localStorage.setItem("ethosTheme", theme);
   });
 });
