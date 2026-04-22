@@ -74,3 +74,8 @@ input {
   gap: 10px;
   margin-top: 10px;
 }
+
+.modal {
+  display: none !important;
+  pointer-events: none !important;
+}
