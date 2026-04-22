@@ -86,3 +86,19 @@ input {
 body * {
   outline: 1px solid red;
 }
+.chat-container {
+  position: relative;
+  z-index: 10;
+}
+
+.chat-box,
+.input-area,
+button,
+input {
+  position: relative;
+  z-index: 20;
+}
+
+body * {
+  pointer-events: auto !important;
+}
